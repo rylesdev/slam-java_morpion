@@ -30,7 +30,7 @@ class MorpionFrame extends JFrame {
     private JLabel scoreLabel;
     private JComboBox<String> themeComboBox;
     private JButton switchModeButton;
-    private Color borderColor = Color.WHITE; // Couleur des bordures par défaut (mode sombre)
+    private Color borderColor = Color.WHITE;
 
     public MorpionFrame() {
         setTitle("Morpion");
@@ -38,7 +38,6 @@ class MorpionFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Saisie des noms des joueurs
         player1Name = JOptionPane.showInputDialog(this, "Entrez le nom du Joueur 1:", "Joueur 1", JOptionPane.PLAIN_MESSAGE);
         player2Name = JOptionPane.showInputDialog(this, "Entrez le nom du Joueur 2:", "Joueur 2", JOptionPane.PLAIN_MESSAGE);
         if (player1Name == null || player1Name.trim().isEmpty()) player1Name = "Joueur 1";
@@ -87,7 +86,7 @@ class MorpionFrame extends JFrame {
 
         add(mainPanel);
         resetGame();
-        changeTheme(); // Appliquer le thème sombre par défaut
+        changeTheme();
     }
 
     private void resetGame() {
@@ -141,31 +140,29 @@ class MorpionFrame extends JFrame {
     private void changeTheme() {
         String selectedTheme = (String) themeComboBox.getSelectedItem();
         if (selectedTheme.equals("Sombre")) {
-            // Thème sombre
             getContentPane().setBackground(Color.DARK_GRAY);
-            borderColor = Color.WHITE; // Bordures blanches
+            borderColor = Color.WHITE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     buttons[i][j].setBackground(Color.DARK_GRAY);
-                    buttons[i][j].setForeground(Color.WHITE); // Texte en blanc
+                    buttons[i][j].setForeground(Color.WHITE);
                     ((CustomButton) buttons[i][j]).setBorderColor(borderColor);
                 }
             }
         } else {
-            // Thème aléatoire
             Random rand = new Random();
             Color randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
             getContentPane().setBackground(randomColor);
-            borderColor = Color.BLACK; // Bordures noires
+            borderColor = Color.BLACK;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     buttons[i][j].setBackground(randomColor);
-                    buttons[i][j].setForeground(Color.BLACK); // Texte en noir
+                    buttons[i][j].setForeground(Color.BLACK);
                     ((CustomButton) buttons[i][j]).setBorderColor(borderColor);
                 }
             }
         }
-        repaint(); // Redessiner les bordures
+        repaint();
     }
 
     private void checkWin() {
@@ -261,13 +258,12 @@ class MorpionFrame extends JFrame {
         currentPlayer = "X";
     }
 
-    // Classe personnalisée pour les boutons avec bordures
     private class CustomButton extends JButton {
         private static final long serialVersionUID = 1L;
 		private Color borderColor;
 
         public CustomButton() {
-            setContentAreaFilled(false); // Désactiver le remplissage par défaut
+            setContentAreaFilled(false);
         }
 
         public void setBorderColor(Color borderColor) {
@@ -280,8 +276,8 @@ class MorpionFrame extends JFrame {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             g2d.setColor(borderColor);
-            g2d.setStroke(new BasicStroke(2)); // Épaisseur de la bordure
-            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1); // Dessiner la bordure
+            g2d.setStroke(new BasicStroke(2));
+            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
         }
     }
 }
